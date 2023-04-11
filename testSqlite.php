@@ -10,7 +10,7 @@ $db = new MyDB();
 if(!$db){
     echo $db->lastErrorMsg();
 } else {
-    echo "Opened database successfully\n";
+    //echo "Opened database successfully\n";
 }
 
 $sql =<<<EOF
@@ -24,7 +24,7 @@ while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
     echo "NAME = ". $row['name'] ."\n";*/
     array_push($arr, array('user_id' => $row['id'], 'name' => $row['name']));
 }
-echo "Operation done successfully\n";
+//echo "Operation done successfully\n";
 $result = array('code' => 0, 'msg' => '', 'count' => 2, 'data' => $arr);
 echo json_encode($result);
 $db->close();
