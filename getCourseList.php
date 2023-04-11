@@ -7,17 +7,18 @@ function getCourseList($mysqli)
     $arr = array();
     $sql = "SELECT * FROM course;";
     $result = $mysqli->query($sql);
-
+    $num = $result->num_rows;
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $cosid = $row['cosid'];
             $cosname = $row['cosname'];
-            $coscredit = $row['coscredit'];
+            $time = $row['teach_time'];
             $cosintro = $row['cosintro'];
-            array_push($arr, array('cosid' => $cosid, 'cosname' => $cosname, 'coscredit' => $coscredit,'cosintro' => $cosintro));
+            array_push($arr, array('cosid' => $cosid, 'cosname' => $cosname, 'time' => $time,'cosintro' => $cosintro));
         }
     }
-    return $arr;
+    $result = array('code' => 0, 'msg' => '', 'count' => $num, 'data' => $arr);
+    return $result;
 }
 
 //$conn

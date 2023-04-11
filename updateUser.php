@@ -1,16 +1,16 @@
 <?php
-
+header("Access-Control-Allow-Origin:*");
 $user_id = $_POST["user_id"];
-$password = 123456;
-$name = $_POST["name"];
+$username = $_POST["username"];
 $college = $_POST["college"];
 $class =  $_POST["class"];
 $phone = $_POST["phone"];
 $email = $_POST["email"];
-$gender =  $_POST["gender"];
-$description = $_POST["description"];
-$type = 2;
-
+$gender =  $_POST["sex"];
+$description = $_POST["desc"];
+$type = $_POST["type"];
+$room = $_POST["room"];
+$seat = $_POST["seat"];
 //$conn
 $mysqli = mysqli_connect("bj-cynosdbmysql-grp-nofx4lqu.sql.tencentcdb.com:25980","root","Lzqzxc,.","dainsai");
 
@@ -22,7 +22,7 @@ if (mysqli_errno($mysqli)) {
     exit;
 }
 mysqli_set_charset($mysqli, 'utf8');   //选择字符集
-$sql = "Update `t_user_real` SET user_id = '$user_id', password = '123456', name = '$name', college = '$college', class = '$class', phone = '$phone', email = '$email' where user_id = '$user_id'";
+$sql = "Update `t_user_real` SET name = '$username', college = '$college', class = '$class', phone = '$phone', email = '$email', gender = '$gender', type = '$type', description = '$description',room = '$room',seat = '$seat' where user_id = '$user_id'";
 
 
 if ($mysqli->query($sql) === TRUE) {

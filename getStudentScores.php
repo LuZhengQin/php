@@ -6,34 +6,33 @@ function getStudentScores($mysqli)
     $arr = array();
     $sql = "SELECT * FROM sc;";
     $result = $mysqli->query($sql);
-
+    $num = $result->num_rows;
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $scid = $row['scid'];
             $cid = $row['cid'];
             $sid = $row['sid'];
-            $score = $row['score'];
             $sql1 = "SELECT * FROM student where stuid = '$sid';";
             $sql2 = "SELECT * FROM course where cosid = '$cid';";
             $result1 = $mysqli->query($sql1);
             $result2 = $mysqli->query($sql2);
             $stuname =null;
             $cosname = null;
-            $coscredit = null;
             if ($result1->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $result1->fetch_assoc()) {
                     $stuname = $row['stuname'];
                 }
             }
             if ($result2->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $result2->fetch_assoc()) {
                     $cosname = $row['cosname'];
-                    $coscredit = $row['coscredit'];
                 }
             }
-            array_push($arr, array('cid' => $cid, 'cosname' => $cosname, 'coscredit' => $coscredit, 'stuname' => $stuname, 'sid' => $sid, 'score' => $score));
+            array_push($arr, array('scid' => $scid, 'cid' => $cid, 'cosname' => $cosname, 'stuname' => $stuname, 'sid' => $sid));
         }
     }
-    return $arr;
+    $result = array('code' => 0, 'msg' => '', 'count' => $num, 'data' => $arr);
+    return $result;
 }
 
 //$conn
